@@ -6,12 +6,12 @@
 
 ; Convert 32-bit unsigned integer to decimal number
 ;
-;   d0 - 32-bit number
-;   d1 - decimal point
+;   d0   - 32-bit number
+;   d1.w - decimal point
 ;
 ; Output
 ;
-;   a0 - text buffer
+;   a0   - text buffer
 
 decimal_unsigned:
 
@@ -86,12 +86,12 @@ decimal_unsigned:
 
 ; Convert 32-bit signed integer to decimal number
 ;
-;   d0 - 32-bit number
-;   d1 - decimal point
+;   d0   - 32-bit number
+;   d1.w - decimal point
 ;
 ; Output
 ;
-;   a0 - text buffer
+;   a0   - text buffer
 
 decimal_signed:
 

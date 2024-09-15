@@ -6,12 +6,12 @@
 
 ; Convert value to hexadecimal number
 ;
-;   d0 - value
-;   d1 - size in bytes (1-4)
+;   d0   - value
+;   d1   - size in bytes (1-4)
 ;
 ; Output
 ;
-;   a0 - text buffer
+;   a0   - text buffer
 
 hex_value:
 
@@ -62,11 +62,11 @@ hex_value:
 
 ; Parse hexadecimal number
 ;
-;   a0 - text buffer
+;   a0   - text buffer
 ;
 ; Output
 ;
-;   d0 - parsed value
+;   d0   - parsed value
 
 hex_parse:
 
