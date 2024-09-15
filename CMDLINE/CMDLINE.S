@@ -6,7 +6,7 @@
 
 start:
 
-	move.l	4(sp),a5	; tpe?
+	move.l	4(sp),a5	; tpa
 
 	lea	stack,sp
 
@@ -14,8 +14,8 @@ start:
 
 	bsr	console_clear
 
-	tst.b	$0080(a5)	; command line length
-	beq	.nocmdline
+	tst.b	128(a5)		; cmdlin
+	beq	.no_cmdlin
 
 	lea	text_command_line,a0
 	bsr	console_print
@@ -31,22 +31,18 @@ start:
 	lea	text_press,a0
 	bsr	console_print
 	bsr	mouse_show
-
-	move.w	#1,-(sp)	; conin
-	trap	#1
-	addq.l	#2,sp
+	bsr	console_get
 
 	clr.w	d0
 	bra	system_exit
 
-.nocmdline:
+.no_cmdlin:
 
 	lea	text_no_command_line,a0
 	bsr	console_print
 	bsr	console_line
 
 	bra	.done
-
 
 	section	bss
 
