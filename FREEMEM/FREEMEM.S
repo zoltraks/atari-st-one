@@ -1,3 +1,6 @@
+; Program: FREEMEM
+; Version: 0.2
+; Date:    2024-09-15
 
 	section	text
 
@@ -42,6 +45,7 @@ main:
 	bsr	console_line
 
 	move.l	a5,a0
+	move.l	#$100,d0
 	bsr	system_shrink
 
 	lea	text_free_shrink,a0
@@ -63,10 +67,7 @@ main:
 	bsr	console_print
 	bsr	mouse_show
 
-	move.w	#1,-(sp)	; conin
-	trap	#1
-	addq.l	#2,sp
-
+	bsr	console_get
 	clr.w	d0
 	bra	system_exit
 
@@ -82,19 +83,19 @@ stack:
 
 text_free_start:
 
-	dc.b	'Free memory at start:      ',0
-
-text_program_size:
-
-	dc.b	'Program size in memory:    ',0
+	dc.b	'Free memory at start: ',0
 
 text_free_shrink:
 
-	dc.b	'Free memory after shrink:  ',0
+	dc.b	'Free memory after shrink: ',0
+
+text_program_size:
+
+	dc.b	'Program size in memory: ',0
 
 text_press:
 
-	dc.b	'Press any key to exit...',0
+	dc.b	'Press any key to exit program...',0
 
 	section bss
 
@@ -108,11 +109,9 @@ value_program_size:
 
 	section	text
 
-	include	'DECIMAL.I'
-
-	include	'CONSOLE.I'
-
-	include	'SYSTEM.I'
-
-	include	'MOUSE.I'
+	;include	'CONSOLE.I'
+	;include	'DECIMAL.I'
+	;include	'SYSTEM.I'
+	;include	'MOUSE.I'
  
+	include	'RUNTIME.I'
