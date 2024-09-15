@@ -20,6 +20,7 @@ system_vbl:
 
 system_shrink:
 
+	move.l	#$0100,d0	; base size
 	add.l	$c(a0),d0	; text size
 	add.l	$14(a0),d0	; data size
 	add.l	$1c(a0),d0	; bss size
