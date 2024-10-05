@@ -11,7 +11,7 @@ BUFFER_SIZE	equ	$400
 start:
 
  	movea.l	4(sp),a0	; tpa
-       	lea	stack,sp
+	lea	stack,sp
 	bsr	system_shrink
 	bsr	command_parse
 	bsr	mouse_hide
