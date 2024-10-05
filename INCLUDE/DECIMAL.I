@@ -1,6 +1,6 @@
 ; Include: DECIMAL
-; Version: 0.2
-; Date:    2024-09-10
+; Version: 0.4
+; Date:    2024-10-05
 
 	section	text
 
@@ -14,6 +14,8 @@
 ;   a0   - text buffer
 
 decimal_unsigned:
+
+	movem.l	d5-7,-(sp)
 
 	lea	decimal_buffer+1,a1
 	lea	decimal_scale,a2
@@ -36,7 +38,7 @@ decimal_unsigned:
 	cmp.l	d6,d0	
 	bmi	.next
 	sub.l	d6,d0
-	add.b	#1,d4
+	addq.b	#1,d4
 	bra	.loop
 
 .next:
@@ -55,7 +57,7 @@ decimal_unsigned:
 
 	tst.b	d5
 	beq	.no_dot
-	sub.b	#1,d5
+	subq.b	#1,d5
 	bne	.no_dot
 
 	btst	#8,d5
@@ -69,7 +71,7 @@ decimal_unsigned:
 
 .no_dot:
 
-	sub.w	#1,d7
+	subq.b	#1,d7
 	bne	.each	
 
 	btst	#8,d5
@@ -81,6 +83,8 @@ decimal_unsigned:
 	add.b	#'0',d0
 	move.b	d0,(a1)+
 	clr.b	(a1)
+
+	movem.l	(sp)+,d5-7
 
 	rts
 

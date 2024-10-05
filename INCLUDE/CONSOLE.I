@@ -1,6 +1,6 @@
 ; Include: CONSOLE
-; Version: 0.3
-; Date:    2024-09-14
+; Version: 0.6
+; Date:    2024-10-05
 
 	section	text
 
@@ -18,6 +18,8 @@ console_clear:
 
 console_line:
 
+	movem.l	d0-1/a0,-(sp)
+
 	move.w	#13,-(sp)
 	move.w	#2,-(sp)	; conout
 	trap	#1
@@ -25,6 +27,8 @@ console_line:
 	move.w	#2,-(sp)	; conout
 	trap	#1
 	addq.l	#8,sp
+
+	movem.l	(sp)+,d0-1/a0
 
 	rts
 
@@ -57,6 +61,51 @@ console_key:
 	
 	rts
 
+; Check if key was pressed
+;
+; Output
+;
+;	d0	- zero when key was not pressed
+
+console_has_key:
+
+	move.w	#2,-(sp)	; CON:
+	move.w	#1,-(sp)	; bconstat
+	trap	#13
+	addq.l	#4,sp
+
+	rts
+
+console_input:
+
+	move.w	#0,-(sp)
+	move.w	#1,-(sp)
+	move.w	#21,-(sp)	; cursconf
+	trap	#14
+	addq.l	#6,sp
+
+	move.b	#255,console_buffer
+	move.l	#console_buffer,-(sp)
+	move.w	#$0a,-(sp)	; readline
+	trap	#1
+	addq.l	#6,sp
+
+	move.w	d0,-(sp)
+	
+	move.w	#0,-(sp)
+	move.w	#0,-(sp)
+	move.w	#21,-(sp)	; cursconf
+	trap	#14
+	addq.l	#6,sp
+
+	lea	console_buffer+3,a0
+	move.w	(sp)+,d0
+	add.l	d0,a0
+	move.b	#'$',(a0)
+	lea	console_buffer+2,a0
+
+	rts
+
 console_up:
 
 	move.w	#27,-(sp)
@@ -80,3 +129,13 @@ console_down:
 	addq.l	#8,sp
 
 	rts
+
+	section	bss
+
+	even
+
+console_buffer:
+
+	ds.b	258
+
+	section	text

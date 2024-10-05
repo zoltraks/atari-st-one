@@ -11,6 +11,7 @@
 	include	'STRING.I'
 	include	'DECIMAL.I'
 	include	'HEX.I'
+	include	'CURSOR.I'
 	include	'MOUSE.I'
 	include	'VIDEO.I'
 

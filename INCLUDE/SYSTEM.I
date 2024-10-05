@@ -1,6 +1,6 @@
 ; Include: SYSTEM
-; Version: 0.2
-; Date:    2024-09-13
+; Version: 0.3
+; Date:    2024-09-16
 
 	section	text
 
@@ -23,7 +23,7 @@ system_exit:
 
 system_vbl:
 
-	move.w	#36,-(sp)	;  wvbl
+	move.w	#37,-(sp)	;  wvbl
 	trap	#14
 	addq.l	#2,sp
 
@@ -56,5 +56,36 @@ system_shrink:
 	trap	#1
 	lea	12(sp),sp
 	movem.l	(sp)+,d0/a0
+
+	rts
+
+; Wait for specified amount of milliseconds (rounded to 5ms)
+;
+;	d0	- amount of milliseconds
+
+system_wait:
+
+	move.l	d0,d2
+
+	clr.l	-(sp)
+	move.w	#32,-(sp)	; super
+	trap	#1
+	move.l	d0,2(sp)
+	move.w	#32,(sp)	; super
+
+.loop:
+
+	move.l	($4ba).l,d1
+
+.buzz:
+
+	cmp.l	($4ba).l,d1
+	beq	.buzz
+
+	subi.w	#5,d2
+	bpl	.loop
+
+	trap	#1
+	addq.l	#6,sp
 
 	rts

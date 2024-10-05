@@ -1,6 +1,6 @@
 ; Include: HEX
-; Version: 0.1
-; Date:    2024-09-10
+; Version: 0.2
+; Date:    2024-09-16
 
 	section	text
 
@@ -15,9 +15,7 @@
 
 hex_value:
 
-	move.l	d0,-(sp)
-	move.l	d1,-(sp)
-	move.l	d2,-(sp)
+	movem.l	d0-2,-(sp)
 
 	lea	hex_buffer+9,a0
 	clr.b	-(a0)
@@ -54,9 +52,7 @@ hex_value:
 
 .done:
 
-	move.l	(sp)+,d2
-	move.l	(sp)+,d1
-	move.l	(sp)+,d0
+	movem.l	(sp)+,d0-2
 
 	rts
 
