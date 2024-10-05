@@ -1,5 +1,4 @@
-EGG
-===
+ATARI ST BOX
+============
 
-Nothing yet here
 
