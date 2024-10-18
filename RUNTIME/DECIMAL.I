@@ -1,6 +1,6 @@
 ; Include: DECIMAL
-; Version: 0.4
-; Date:    2024-10-05
+; Version: 0.5
+; Date:    2024-10-18
 
 	section	text
 
@@ -15,6 +15,7 @@
 
 decimal_unsigned:
 
+	move.l	d0,-(sp)
 	movem.l	d5-7,-(sp)
 
 	lea	decimal_buffer+1,a1
@@ -85,6 +86,7 @@ decimal_unsigned:
 	clr.b	(a1)
 
 	movem.l	(sp)+,d5-7
+	move.l	(sp)+,d0
 
 	rts
 

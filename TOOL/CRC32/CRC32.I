@@ -1,8 +1,11 @@
 ; Include: CRC32
-; Version: 0.1
-; Date:    2024-09-16
+; Version: 1.0
+; Date:    2024-10-07
+; Author:  ZoltarX/NG
 
 	section	text
+
+; Initialize CRC32 checksum
 
 crc32_init:
 
@@ -13,7 +16,7 @@ crc32_init:
 
 	rts
 
-	movem.l	d0-2/a0-2,-(sp)
+	movem.l	d0-5/a0-2,-(sp)
 
 	move.l	#256*4,-(sp)
 	move.w	#$48,-(sp)	; malloc
@@ -48,7 +51,7 @@ crc32_init:
 	cmpi.w	#256,d1
 	bne	.loop
 
-	movem.l	(sp)+,d0-2/a0-2
+	movem.l	(sp)+,d0-5/a0-2
 
 	rts
 
@@ -88,6 +91,12 @@ crc32_block:
 
 	rts
 
+; Finish CRC32 calculation and return result
+;
+; Output:
+;
+;   d0   - CRC32 
+
 crc32_result:
 
 	move.l	crc32_value,d0
@@ -95,12 +104,14 @@ crc32_result:
 	beq	*+6
 
 	rts
-
+ 
 	addi.w	#1,crc32_done
 	eori.l	#-1,d0
 	move.l	d0,crc32_value
 
 	rts
+
+; Free previously allocated resources
 
 crc32_free:
 
@@ -109,10 +120,16 @@ crc32_free:
 
 	rts
 
+	movem.l	d0/a0,-(sp)
+
 	move.l	crc32_table,-(sp)
 	move.w	#$49,-(sp)	; mfree
 	trap	#1
 	addq.l	#6,sp
+
+	clr.l	crc32_table
+
+	movem.l	(sp)+,d0/a0
 
 	rts	
 

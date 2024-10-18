@@ -1,6 +1,7 @@
 ; Program: CRC32
-; Version: 0.3
-; Date:    2024-10-05
+; Version: 1.0
+; Date:    2024-10-07
+; Author:  ZoltarX/NG
 
 EXIT_WAIT	equ	1
 
@@ -12,6 +13,7 @@ start:
 
  	movea.l	4(sp),a0	; tpa
 	lea	stack,sp
+
 	bsr	system_shrink
 	bsr	command_parse
 	bsr	mouse_hide

@@ -1,6 +1,7 @@
 ; Program: FREEMEM
 ; Version: 0.2
 ; Date:    2024-09-15
+; Author:  ZoltarX/NG
 
 	section	text
 
@@ -83,15 +84,15 @@ stack:
 
 text_free_start:
 
-	dc.b	'Free memory at start: ',0
-
-text_free_shrink:
-
-	dc.b	'Free memory after shrink: ',0
+	dc.b	'Free memory at startup: ',0
 
 text_program_size:
 
 	dc.b	'Program size in memory: ',0
+
+text_free_shrink:
+
+	dc.b	'Available after shrink: ',0
 
 text_press:
 
@@ -109,9 +110,7 @@ value_program_size:
 
 	section	text
 
-	;include	'CONSOLE.I'
-	;include	'DECIMAL.I'
-	;include	'SYSTEM.I'
-	;include	'MOUSE.I'
- 
-	include	'RUNTIME.I'
+	include	'CONSOLE.I'
+	include	'DECIMAL.I'
+	include	'SYSTEM.I'
+	include	'MOUSE.I'

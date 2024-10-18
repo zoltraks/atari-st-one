@@ -1,6 +1,7 @@
 ; Program: CMDLINE
 ; Version: 1.0
 ; Date:    2024-09-13
+; Author:  ZoltarX/NG
 
 	section	text
 

@@ -1,6 +1,6 @@
 ; Include: CONSOLE
-; Version: 0.6
-; Date:    2024-10-05
+; Version: 0.7
+; Date:    2024-10-07
 
 	section	text
 
@@ -34,14 +34,14 @@ console_line:
 
 console_print:
 
-	movem.l	a0,-(sp)
+	movem.l	d0/a0,-(sp)
 
 	move.l	a0,-(sp)
 	move.w	#9,-(sp)	; print
 	trap	#1
 	addq.l	#6,sp
 
-	movem.l	(sp)+,a0
+	movem.l	(sp)+,d0/a0
 
 	rts
 
