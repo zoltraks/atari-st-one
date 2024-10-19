@@ -1,5 +1,7 @@
 ; Include: CURSOR
+; Version: 0.1
 ; Date:    2024-09-15
+; Author:  ZoltarX/NG
 
 	section	text
 

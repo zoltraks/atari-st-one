@@ -1,8 +1,13 @@
 ; Include: CONSOLE
-; Version: 0.7
-; Date:    2024-10-07
+; Version: 0.8
+; Date:    2024-10-18
+; Author:  ZoltarX/NG
 
 	section	text
+
+; Clear console window
+;
+; Please ensure hidden mouse cursor before calling :-)
 
 console_clear:
 
@@ -15,6 +20,8 @@ console_clear:
 	addq.l	#8,sp
 
 	rts
+
+; Print new line
 
 console_line:
 
@@ -31,6 +38,12 @@ console_line:
 	movem.l	(sp)+,d0-1/a0
 
 	rts
+
+; Write text out
+;
+; Input
+;
+;	a0	- text address
 
 console_print:
 
@@ -66,6 +79,12 @@ console_key:
 ; Output
 ;
 ;	d0	- zero when key was not pressed
+;	Z	- set when key was not pressed
+;
+; Example
+;
+;	bsr	console_has_key
+;	bne	.key_pressed
 
 console_has_key:
 
@@ -73,6 +92,8 @@ console_has_key:
 	move.w	#1,-(sp)	; bconstat
 	trap	#13
 	addq.l	#4,sp
+
+	tst.b	d0
 
 	rts
 
@@ -131,8 +152,6 @@ console_down:
 	rts
 
 	section	bss
-
-	even
 
 console_buffer:
 

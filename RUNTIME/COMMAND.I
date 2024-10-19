@@ -1,6 +1,7 @@
 ; Include: COMMAND
 ; Version: 0.3
 ; Date:    2024-10-05
+; Author:  ZoltarX/NG
 
 	section	text
 

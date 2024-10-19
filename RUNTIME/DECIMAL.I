@@ -1,6 +1,7 @@
 ; Include: DECIMAL
 ; Version: 0.5
 ; Date:    2024-10-18
+; Author:  ZoltarX/NG
 
 	section	text
 

@@ -1,6 +1,7 @@
 ; Include: HEX
 ; Version: 0.2
 ; Date:    2024-09-16
+; Author:  ZoltarX/NG
 
 	section	text
 
