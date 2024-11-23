@@ -1,0 +1,59 @@
+***
+
+
+===
+ASM
+===
+
+
+======
+GEMDOS
+======
+
+
+```
+	move.l	#256*4,-(sp)
+	move.w	#$48,-(sp)		; malloc
+	trap	#1
+	addq.l	#6,sp
+
+	tst.l	d0
+	beq	error
+
+	move.l	d0,pointer
+```
+
+```
+	move.l	pointer,-(sp)
+	move.w	#$49,-(sp)		; mfree
+	trap	#1
+	addq.l	#6,sp
+```
+
+
+===
+ONE
+===
+
+```
+wait_500:
+
+	moveq.w	#5-1,d3
+
+.loop:
+
+	moveq	#100,d0
+	bsr	system_wait
+	bsr	console_has_key
+	beq	.key_not_pressed
+
+	rts
+
+.key_not_pressed:
+
+	dbf	d3,.loop
+	moveq.w	#0,d3
+
+	rts
+
+```

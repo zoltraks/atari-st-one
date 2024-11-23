@@ -1,6 +1,6 @@
 ; Include: SYSTEM
-; Version: 0.3
-; Date:    2024-09-16
+; Version: 0.4
+; Date:    2024-11-23
 
 	section	text
 
@@ -65,6 +65,16 @@ system_shrink:
 
 system_wait:
 
+	subi.w	#1,d0
+	bpl	.next
+	addi.w	#1,d0
+
+	rts
+
+.next
+
+	movem.l	d0-2/a0-1,-(sp)
+
 	move.l	d0,d2
 
 	clr.l	-(sp)
@@ -87,5 +97,7 @@ system_wait:
 
 	trap	#1
 	addq.l	#6,sp
+
+	movem.l	(sp)+,d0-2/a0-1
 
 	rts

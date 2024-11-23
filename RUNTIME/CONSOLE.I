@@ -1,6 +1,6 @@
 ; Include: CONSOLE
 ; Version: 0.8
-; Date:    2024-10-18
+; Date:    2024-11-21
 ; Author:  ZoltarX/NG
 
 	section	text
@@ -47,14 +47,14 @@ console_line:
 
 console_print:
 
-	movem.l	d0/a0,-(sp)
+	movem.l	d0-2/a0,-(sp)
 
 	move.l	a0,-(sp)
 	move.w	#9,-(sp)	; print
 	trap	#1
 	addq.l	#6,sp
 
-	movem.l	(sp)+,d0/a0
+	movem.l	(sp)+,d0-2/a0
 
 	rts
 
